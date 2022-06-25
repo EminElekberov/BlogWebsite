@@ -1,7 +1,9 @@
 ﻿using DataAccessLayer.Concrete;
+using Entity;
 using Entity.Concencrate;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,6 +15,12 @@ namespace newless.Controllers
 {
     public class LoginController : Controller
     {
+        private readonly SignInManager<AppUser> _signInManager;
+
+        public LoginController(SignInManager<AppUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
         public IActionResult Index()
         {
             return View();
@@ -43,6 +51,11 @@ namespace newless.Controllers
             {
                 return View();
             }
+        }
+        public async Task<IActionResult> logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Login");
         }
     }
 }

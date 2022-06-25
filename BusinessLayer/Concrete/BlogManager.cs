@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using Entity.Concencrate;
 using System;
 using System.Collections.Generic;
@@ -44,7 +45,9 @@ namespace BusinessLayer.Concrete
 
         public void TAdd(Blog t)
         {
+           // MyContext myContext = new MyContext();
             _blogDal.Insert(t);
+            //myContext.SaveChanges();
         }
 
         public void TDelete(Blog t)

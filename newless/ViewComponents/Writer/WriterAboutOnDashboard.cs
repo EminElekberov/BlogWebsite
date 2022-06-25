@@ -12,13 +12,15 @@ namespace newless.ViewComponents.Writer
     public class WriterAboutOnDashboard:ViewComponent
     {
         WriterManager writerManager = new WriterManager(new EfWriterRepository());
-        MyContext myContext = new MyContext();
+        MyContext _myContext = new MyContext();
         public IViewComponentResult Invoke()
         {
-            var userMail = User.Identity.Name;
-            var writerId = myContext.Writers.Where(x => x.Email == userMail).Select(x => x.Id).FirstOrDefault();
-            var value = writerManager.GetWriterById(writerId);
-            return View(value);
+            var username = User.Identity.Name;
+            ViewBag.v = username;
+            var usermail = _myContext.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = _myContext.Writers.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
+            var values = writerManager.GetWriterById(writerId);
+            return View(values);
         }
     }
 }

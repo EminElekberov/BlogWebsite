@@ -11,7 +11,7 @@ namespace DataAccessLayer.Repository
 {
     public class GenericRepository<T> : IGenericDal<T> where T : class
     {
-        public  void Delete(T t)
+        public void Delete(T t)
         {
             using var c = new MyContext();
             c.Remove(t);
@@ -37,7 +37,7 @@ namespace DataAccessLayer.Repository
 
         public void Insert(T t)
         {
-            using var myContext = new MyContext();
+            MyContext myContext = new MyContext();
             myContext.Add(t);
             myContext.SaveChanges();
         }

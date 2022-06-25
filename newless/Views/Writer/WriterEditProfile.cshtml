@@ -1,4 +1,4 @@
-﻿@model Writer
+﻿@model UserUpdateViewModel
 @{ 
     Layout = "~/Views/Shared/_LayoutWriter.cshtml";
 }
@@ -6,14 +6,10 @@
     @*<div asp-validation-summary="ModelOnly" style="color:red"></div>*@
     <div class="form-group">
         <label for="exampleInputName1">Name</label>
-        <input type="text" asp-for="Name" class="form-control" />
+        <input type="text" asp-for="NameSurname" class="form-control" />
     </div>
     <div class="form-group">
-        <label for="exampleInputName1">About</label>
-        <input type="text" asp-for="About" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label for="exampleInputName1">Email</label>
+        <label for="exampleInputName1">EMail</label>
         <input type="text" asp-for="Email" class="form-control" />
     </div>
     <div class="form-group">

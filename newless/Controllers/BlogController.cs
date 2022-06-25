@@ -40,10 +40,13 @@ namespace newless.Controllers
         public IActionResult BlogListByWriter()
         {
 
-            var useremail = User.Identity.Name;
-            ViewBag.v = useremail;
-            var writerName = mycontext.Writers.Where(x => x.Email == useremail).Select(x => x.Id).FirstOrDefault();
-            var values = bm.GetListWIthCategoryByWriterBm(writerName );
+            var username = User.Identity.Name;
+            var useremail = mycontext.Users.Where(x => x.UserName == username).Select(x => x.Email).FirstOrDefault();
+            var writerId = mycontext.Writers.Where(x => x.Email == useremail).Select(x => x.Id).FirstOrDefault();
+            var values = bm.GetListWIthCategoryByWriterBm(writerId);
+            //ViewBag.v = useremail;
+            //var writerName = mycontext.Writers.Where(x => x.Email == useremail).Select(x => x.Id).FirstOrDefault();
+            //var values = bm.GetListWIthCategoryByWriterBm(writerName );
             return View(values);
         }
         public async Task<IActionResult> BlogAdd()
@@ -60,6 +63,9 @@ namespace newless.Controllers
         [HttpPost]
         public IActionResult BlogAdd(Blog w)
         {
+            var username = User.Identity.Name;
+            var useremail = mycontext.Users.Where(x => x.UserName == username).Select(x => x.Email).FirstOrDefault();
+            var writerId = mycontext.Writers.Where(x => x.Email == useremail).Select(x => x.Id).FirstOrDefault();
             MyContext m = new MyContext();
             BlogValidator vm = new BlogValidator();
             ValidationResult validationResult = vm.Validate(w);
@@ -68,8 +74,9 @@ namespace newless.Controllers
 
                 w.Status = true;
                 w.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
-                w.WriterId = 1;
+                w.WriterId = writerId;
                 bm.TAdd(w);
+                //m.SaveChanges()
                 return RedirectToAction("BlogListByWriter", "Blog");
             }
             else
@@ -103,8 +110,13 @@ namespace newless.Controllers
         [HttpPost]
         public IActionResult EditBlog(Blog p)
         {
-            p.WriterId = 1;
-            p.CreateDate = (DateTime.Parse(DateTime.Now.ToShortDateString()));
+
+            var username = User.Identity.Name;
+            var usermail = mycontext.Users.Where(x => x.UserName == username).Select(y => y.Email).FirstOrDefault();
+            var writerId = mycontext.Writers.Where(x => x.Email == usermail).Select(y => y.Id).FirstOrDefault();
+
+            p.WriterId = writerId;
+            p.CreateDate = DateTime.Parse(DateTime.Now.ToShortDateString());
             p.Status = true;
             bm.TUpdate(p);
             return RedirectToAction("BlogListByWriter");

@@ -27,10 +27,18 @@ namespace BusinessLayer.Concrete
         {
             return _Imessaagedal.GetAllList();
         }
+        public List<Message2> GetSendBoxWriter(int id)
+        {
+            return _Imessaagedal.GetSendBooxMessageByWriter(id);
+        }
 
+        public List<Message2> GetInBoxWriter(int id)
+        {
+            return _Imessaagedal.GetinboxMessageByWriter(id);
+        }
         public List<Message2> getListWriter(int id)
         {
-            return _Imessaagedal.GetListWithMessageByWriter(id);
+            return _Imessaagedal.GetinboxMessageByWriter(id);
         }
 
         public void TAdd(Message2 t)

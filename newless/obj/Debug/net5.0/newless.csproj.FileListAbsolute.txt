@@ -236,3 +236,6 @@ D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Areas\Admin\Views\Writer\Index.cs
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\RegisterUsers\Index.cshtml.g.cs
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\LoginUser\Index.cshtml.g.cs
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Shared\_UserLayout.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Blog\EditBlog.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Message\SendMessage.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminMessage\Inbox.cshtml.g.cs

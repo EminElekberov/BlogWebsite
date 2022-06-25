@@ -2,8 +2,10 @@
 using BusinessLayer.ValidationRules;
 using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using Entity;
 using Entity.Concencrate;
 using FluentValidation.Results;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using newless.Models;
 using System;
@@ -18,6 +20,13 @@ namespace newless.Controllers
     {
         MyContext mycontext = new MyContext();
         WriterManager writerManager = new WriterManager(new EfWriterRepository());
+        private readonly UserManager<AppUser> _userManager;
+
+        public WriterController(UserManager<AppUser> userManager)
+        {
+            _userManager = userManager;
+        }
+
         public IActionResult Index()
         {
             var useremail = User.Identity.Name;
@@ -36,36 +45,36 @@ namespace newless.Controllers
             return PartialView();
         }
         [HttpGet]
-        public IActionResult WriterEditProfile()
+        public async Task<IActionResult> WriterEditProfile()
         {
+            // UserManager userManager = new UserManager(new EfUserRepository());
+            // var Username = User.Identity.Name;
+            // var userEmail = mycontext.Users.Where(x => x.UserName == Username).Select(x => x.Email).FirstOrDefault();
+            // ViewBag.v = Username;
+            // var writerName = mycontext.Writers.Where(x => x.Email == Username).Select(x => x.Id).FirstOrDefault();
+            //// var value = writerManager.GetById(writerName);
+            // var id = mycontext.Users.Where(x => x.Email == userEmail).Select(y => y.Id).FirstOrDefault();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            var Username = User.Identity.Name;
-            var userEmail = mycontext.Users.Where(x => x.UserName == Username).Select(x => x.Email).FirstOrDefault();
-            ViewBag.v = Username;
-            var writerName = mycontext.Writers.Where(x => x.Email == Username).Select(x => x.Id).FirstOrDefault();
-            var value = writerManager.GetById(writerName);
-            return View(value);
+            var model = new UserUpdateViewModel();
+
+            model.Email = values.Email;
+            model.NameSurname = values.NameSurname;
+            model.ImageUrl = values.ImageUrl;
+            model.Username = values.UserName;
+            return View(model);
         }
         [HttpPost]
-        public IActionResult WriterEditProfile(Writer p)
+        public async Task<IActionResult> WriterEditProfile(UserUpdateViewModel model)
         {
-            WriterValidator rules = new WriterValidator();
-            ValidationResult validationResult = rules.Validate(p);
-            if (validationResult.IsValid)
-            {
-                var db = mycontext.Writers.Find(1);
-                p.Id = db.Id;
-                writerManager.TUpdate(p);
-                return RedirectToAction("INdex","Dashboard");
-            }
-            else
-            {
-                foreach (var item in validationResult.Errors)
-                {
-                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
-                }
-            }
-            return View();
+            var values = await _userManager.FindByNameAsync(User.Identity.Name);
+            values.Email = model.Email;
+            values.NameSurname = model.NameSurname;
+            values.ImageUrl = model.ImageUrl;
+            values.UserName = model.Username;
+            values.PasswordHash = _userManager.PasswordHasher.HashPassword(values, model.Password);
+            var result = await _userManager.UpdateAsync(values);
+            return RedirectToAction("Index", "Dashboard");
         }
         public IActionResult WriterAdd()
         {
