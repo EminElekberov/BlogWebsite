@@ -239,3 +239,6 @@ D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Shared\_UserLayout.cshtml.g
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Blog\EditBlog.cshtml.g.cs
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\Message\SendMessage.cshtml.g.cs
 D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminMessage\Inbox.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminRole\AssignRole.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Areas\Admin\Views\AdminRole\UserRoleList.cshtml.g.cs
+D:\Muratyucedag\newless\obj\Debug\net5.0\Razor\Views\LoginUser\AccessDenied.cshtml.g.cs

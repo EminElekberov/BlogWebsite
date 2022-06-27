@@ -1,0 +1,29 @@
+﻿@using Entity
+@model List<AppUser>
+
+@{ 
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Kullanici listesi</h1>
+
+<table class="table table-bordered">
+    <tr>
+        <th>
+            Kulanici
+        </th>
+        <th>
+            Rol Ata
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.UserName</td>
+            <td>
+                <a href="/Admin/AdminRole/AssignRole/@item.Id/" class="btn  btn-outline-warning">Rol ata</a>
+            </td>
+        </tr>
+    }
+</table>
+<a href="/Admin/AdminRole/Index">geri don</a>

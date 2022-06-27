@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +49,17 @@ namespace newless
 
             services.AddMvc();
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-                .AddCookie(x => { x.LoginPath = "/Login/Index"; });
+                .AddCookie(x => { x.LoginPath = "/LoginUser/Index"; });
+
+            services.ConfigureApplicationCookie(option =>
+            {
+                //Cookie settings
+                option.Cookie.HttpOnly = true;
+                option.ExpireTimeSpan = TimeSpan.FromMinutes(100);
+                option.AccessDeniedPath = new PathString("/Login/AccessDenied");
+                option.LoginPath = "/Login/Index/";
+                option.SlidingExpiration = true;
+            });
 
         }
 
