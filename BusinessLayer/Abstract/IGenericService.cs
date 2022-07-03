@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+//metodun adlarni burdan alir 
 namespace BusinessLayer.Abstract
 {
     public interface IGenericService<T>
