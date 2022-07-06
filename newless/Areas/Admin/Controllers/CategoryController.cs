@@ -25,6 +25,7 @@ namespace newless.Areas.Admin.Controllers
             return View();
         }
 
+
         [HttpPost]
         public IActionResult AddCategory(Category p)
         {
